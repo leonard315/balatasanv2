@@ -1,0 +1,178 @@
+{
+  "placeholderImages": [
+    {
+      "id": "hero-background",
+      "description": "A stunning view of Balatasan beach at sunset.",
+      "imageUrl": "https://images.unsplash.com/photo-1518022525094-218670c9b745?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxiZWFjaCUyMHN1bnNldHxlbnwwfHx8fDE3NjIzMjE3MTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "beach sunset"
+    },
+    {
+      "id": "cottage-a-1",
+      "description": "Exterior of Beachfront Cottage A.",
+      "imageUrl": "https://images.unsplash.com/photo-1660493460062-e5c7f9ea09da?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxiZWFjaCUyMGNvdHRhZ2V8ZW58MHx8fHwxNzYyMzQ4NDYzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "beach cottage"
+    },
+    {
+      "id": "cottage-a-2",
+      "description": "Interior of Beachfront Cottage A.",
+      "imageUrl": "https://images.unsplash.com/photo-1509765066291-6b5dd612da2b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjb3R0YWdlJTIwaW50ZXJpb3J8ZW58MHx8fHwxNzYyMjUwMzc0fDA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "cottage interior"
+    },
+    {
+      "id": "cottage-a-3",
+      "description": "View from the porch of Beachfront Cottage A.",
+      "imageUrl": "https://images.unsplash.com/photo-1557408645-ba88d51c0825?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxvY2VhbiUyMHZpZXd8ZW58MHx8fHwxNzYyMjQ0NzM4fDA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "ocean view"
+    },
+    {
+      "id": "glamping-1",
+      "description": "Exterior of a premium glamping tent.",
+      "imageUrl": "https://images.unsplash.com/photo-1632367294096-4e77d53c4ae9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxnbGFtcGluZyUyMHRlbnR8ZW58MHx8fHwxNzYyMzQ4NDYzfDA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "glamping tent"
+    },
+    {
+      "id": "glamping-2",
+      "description": "Interior of a premium glamping tent.",
+      "imageUrl": "https://images.unsplash.com/photo-1713942590283-59867d5e3f8d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx0ZW50JTIwaW50ZXJpb3J8ZW58MHx8fHwxNzYyMzQ4NDYzfDA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "tent interior"
+    },
+    {
+      "id": "villa-1",
+      "description": "Exterior of the Family Villa.",
+      "imageUrl": "https://images.unsplash.com/photo-1520483601560-389dff434fdf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxiZWFjaCUyMHZpbGxhfGVufDB8fHx8MTc2MjM0ODQ2NHww&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "beach villa"
+    },
+    {
+      "id": "villa-2",
+      "description": "Living room of the Family Villa.",
+      "imageUrl": "https://images.unsplash.com/photo-1601086540476-7d9fa9dd6023?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx2aWxsYSUyMGludGVyaW9yfGVufDB8fHx8MTc2MjI0Mzc1MHww&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "villa interior"
+    },
+    {
+      "id": "villa-3",
+      "description": "One of the bedrooms in the Family Villa.",
+      "imageUrl": "https://images.unsplash.com/photo-1566665797739-1674de7a421a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxiZWRyb29tfGVufDB8fHx8MTc2MjM0ODQ2M3ww&ixlibrb-4.1.0&q=80&w=1080",
+      "imageHint": "bedroom"
+    },
+    {
+      "id": "island-hopping-1",
+      "description": "A view of the Aslom sandbar.",
+      "imageUrl": "https://travelorientalmindoro.ph/Content/img/uploads/83c5a007-b150-430f-b9c4-c5a7549a7f13_thumb.jpg",
+      "imageHint": "island sandbar"
+    },
+    {
+      "id": "island-hopping-2",
+      "description": "A beautiful island visited during the tour.",
+      "imageUrl": "https://images.unsplash.com/photo-1672841828271-54340a6fbcd3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx0cm9waWNhbCUyMGlzbGFuZHxlbnwwfHx8fDE3NjIyNzgxODJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "tropical island"
+    },
+    {
+      "id": "waterfall-1",
+      "description": "A hidden waterfall.",
+      "imageUrl": "https://images.unsplash.com/photo-1723784037687-edb3a4959c22?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3YXRlcmZhbGwlMjBqdW5nbGV8ZW58MHx8fHwxNzYyMjk0MDI0fDA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "waterfall jungle"
+    },
+    {
+      "id": "waterfall-2",
+      "description": "People swimming at the waterfall.",
+      "imageUrl": "https://images.unsplash.com/photo-1625445069244-449b2cfe9d88?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxzd2ltbWluZyUyMHdhdGVyZmFsbHxlbnwwfHx8fDE3NjIzNDg0NjR8MA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "swimming waterfall"
+    },
+    {
+      "id": "snorkeling-1",
+      "description": "Snorkeling over a coral reef.",
+      "imageUrl": "https://images.unsplash.com/photo-1515931159317-fbb9577f43b8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzbm9ya2VsaW5nJTIwcmVlZnxlbnwwfHx8fDE3NjIzNDg0NjR8MA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "snorkeling reef"
+    },
+    {
+      "id": "snorkeling-2",
+      "description": "Colorful fish seen while snorkeling.",
+      "imageUrl": "https://images.unsplash.com/photo-1576806021995-9f68eb39f10b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx0cm9waWNhbCUyMGZpc2h8ZW58MHx8fHwxNzYyMzQ4NDY0fDA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "tropical fish"
+    },
+    {
+      "id": "user-avatar-1",
+      "description": "Avatar for Jane Doe.",
+      "imageUrl": "https://images.unsplash.com/photo-1592621385612-4d7129426394?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx3b21hbiUyMHBvcnRyYWl0fGVufDB8fHx8MTc2MjMzOTU2MHww&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman portrait"
+    },
+    {
+      "id": "user-avatar-2",
+      "description": "Avatar for John Smith.",
+      "imageUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtYW4lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjIzMzEzMTh8MA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "man portrait"
+    },
+    {
+      "id": "login-background",
+      "description": "A tranquil beach path.",
+      "imageUrl": "https://images.unsplash.com/photo-1657371089189-a7e0215bebc7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxiZWFjaCUyMHBhdGh8ZW58MHx8fHwxNzYyMzQ4NDY0fDA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "beach path"
+    },
+    {
+      "id": "watersport-flying-fish",
+      "description": "Flying fish water activity.",
+      "imageUrl": "https://cdn.bestsuppliers.com/seo_products_img/qihonginflatable/664bdde64c3a3a3e83bfed0aba2e91e2.png!/rotate/180",
+      "imageHint": "inflatable boat"
+    },
+    {
+      "id": "watersport-banana-boat",
+      "description": "Banana boat water activity.",
+      "imageUrl": "https://skylandtourism.com/wp-content/uploads/2018/02/Banana-Boats.jpg",
+      "imageHint": "banana boat"
+    },
+    {
+      "id": "watersport-hurricane",
+      "description": "Hurricane water activity.",
+      "imageUrl": "https://www.oklilytoys.com/data/watermark/20211026/617819164fb2c.jpg",
+      "imageHint": "water tubing"
+    },
+    {
+      "id": "watersport-ufo",
+      "description": "Crazy UFO water activity.",
+      "imageUrl": "http://watersportsmykonos.com/images/crazy-ufo/01.jpg",
+      "imageHint": "water inflatable"
+    },
+    {
+      "id": "watersport-pedal-boat",
+      "description": "Pedal boat on the water.",
+      "imageUrl": "https://s.turbifycdn.com/aah/1stdirect/skipper-4-adult-pedal-boat-206.jpg",
+      "imageHint": "pedal boat"
+    },
+    {
+      "id": "watersport-hand-paddle",
+      "description": "Hand paddle boat activity.",
+      "imageUrl": "https://5.imimg.com/data5/RE/EE/GJ/SELLER-8192417/kids-paddle-boat-1000x1000.png",
+      "imageHint": "kayak"
+    },
+    {
+      "id": "floating-cottage-1",
+      "description": "A floating cottage on the water in Balatasan.",
+      "imageUrl": "https://tse1.mm.bing.net/th/id/OIP.qyxAPLO4_n8brrOf9JVOtQHaFj?pid=Api&P=0&h=180",
+      "imageHint": "floating cottage"
+    },
+    {
+      "id": "tour-target-island",
+      "description": "A beautiful view of Target Island.",
+      "imageUrl": "https://travelorientalmindoro.ph/Content/img/uploads/33b63d38-739b-4b7f-b8c4-ca744970c5cf.jpg",
+      "imageHint": "tropical island beach"
+    },
+    {
+      "id": "tour-buyayao-island",
+      "description": "A beautiful view of Buyayao Island.",
+      "imageUrl": "https://cdns.app/wgsdkw2F/assets/image/properties/957686ebaf49d88b1bc9e4a53e8a2540_1656589352.jpg",
+      "imageHint": "tropical island cliff"
+    },
+    {
+      "id": "tour-suguicay-island",
+      "description": "A beautiful view of Suguicay Island.",
+      "imageUrl": "https://travelorientalmindoro.ph/Content/img/uploads/0ccf5666-41a4-4efc-b51c-abcb142057e7.jpg",
+      "imageHint": "tropical island sandbar"
+    },
+    {
+      "id": "tour-silad-island",
+      "description": "A beautiful view of Silad Island.",
+      "imageUrl": "https://travelorientalmindoro.ph/Content/img/uploads/04468cee-9e1b-469f-a21c-90fef8360379.jpg",
+      "imageHint": "tropical island"
+    }
+  ]
+}

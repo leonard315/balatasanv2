@@ -1,0 +1,196 @@
+/**
+ * @fileOverview Firestore Security Rules for Balatasan Beach Resort booking system.
+ *
+ * Core Philosophy:
+ * This ruleset enforces a strict user-ownership model for user-specific data, and open access for public data.
+ *
+ * Data Structure:
+ * - User profiles and associated data (bookings, booking items, payments, reviews) are nested under `/users/{userId}`.
+ * - Public data (accommodations, tour packages, availability calendars, promo codes, activity logs) are stored in top-level collections.
+ *
+ * Key Security Decisions:
+ * - User data is strictly controlled by path-based ownership.
+ * - Public data is readable by everyone, but writable only by authorized users (not implemented in this prototype).
+ * - List operations are allowed for owners of user-scoped subcollections.
+ * - Relational integrity is enforced on document creation by matching the document ID to the user ID in the path.
+ * - Read-only subcollections are not explicitly defined, but write access is denied to ensure data integrity.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.userType == 'admin';
+    }
+
+    /**
+     * @description Allows authenticated users to manage their own user profile. Admins can list all users.
+     * @path /users/{userId}
+     * @allow (create, update, delete) - User with ID 'user123' can create/update/delete their profile at /users/user123.
+     * @deny (create, update, delete) - User with ID 'user456' cannot create/update/delete profile at /users/user123.
+     * @principle Enforces document ownership for writes. Admins can read/list all profiles.
+     */
+    match /users/{userId} {
+      function isExistingOwner(userId) {
+        return request.auth.uid == userId && resource != null;
+      }
+
+      allow get: if request.auth != null;
+      allow list: if isAdmin();
+      allow create: if request.auth.uid == userId;
+      allow update: if isExistingOwner(userId) || isAdmin();
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Allows authenticated users to manage their own bookings. Admins can read all bookings.
+     * @path /users/{userId}/bookings/{bookingId}
+     * @allow (create, update, delete) - User with ID 'user123' can create/update/delete booking with ID 'booking456' under /users/user123/bookings/booking456.
+     * @deny (create, update, delete) - User with ID 'user456' cannot create/update/delete booking with ID 'booking456' under /users/user123/bookings/booking456.
+     * @principle Enforces document ownership for writes, with admin read override.
+     */
+    match /users/{userId}/bookings/{bookingId} {
+      function isExistingOwner(userId) {
+        return request.auth.uid == userId && resource != null;
+      }
+
+      allow get: if request.auth.uid == userId || isAdmin();
+      allow list: if request.auth.uid == userId || isAdmin();
+      allow create: if request.auth.uid == userId;
+      allow update: if isExistingOwner(userId) || isAdmin();
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Allows authenticated users to manage their own booking items. Admins can read all items.
+     * @path /users/{userId}/bookings/{bookingId}/bookingItems/{bookingItemId}
+     * @allow (create, update, delete) - User with ID 'user123' can create/update/delete booking item with ID 'item789' under /users/user123/bookings/booking456/bookingItems/item789.
+     * @deny (create, update, delete) - User with ID 'user456' cannot create/update/delete booking item with ID 'item789' under /users/user123/bookings/booking456/bookingItems/item789.
+     * @principle Enforces document ownership for writes.
+     */
+    match /users/{userId}/bookings/{bookingId}/bookingItems/{bookingItemId} {
+      function isExistingOwner(userId) {
+        return request.auth.uid == userId && resource != null;
+      }
+
+      allow get: if request.auth.uid == userId || isAdmin();
+      allow list: if request.auth.uid == userId || isAdmin();
+      allow create: if request.auth.uid == userId;
+      allow update: if isExistingOwner(userId) || isAdmin();
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Allows authenticated users to manage their own payments. Admins can read all payments.
+     * @path /users/{userId}/bookings/{bookingId}/payments/{paymentId}
+     * @allow (create, update, delete) - User with ID 'user123' can create/update/delete payment with ID 'payment012' under /users/user123/bookings/booking456/payments/payment012.
+     * @deny (create, update, delete) - User with ID 'user456' cannot create/update/delete payment with ID 'payment012' under /users/user123/bookings/booking456/payments/payment012.
+     * @principle Enforces document ownership for writes.
+     */
+    match /users/{userId}/bookings/{bookingId}/payments/{paymentId} {
+      function isExistingOwner(userId) {
+        return request.auth.uid == userId && resource != null;
+      }
+
+      allow get: if request.auth.uid == userId || isAdmin();
+      allow list: if request.auth.uid == userId || isAdmin();
+      allow create: if request.auth.uid == userId;
+      allow update: if isExistingOwner(userId) || isAdmin();
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Allows authenticated users to manage their own reviews. Admins can read all reviews.
+     * @path /users/{userId}/reviews/{reviewId}
+     * @allow (create, update, delete) - User with ID 'user123' can create/update/delete review with ID 'review345' under /users/user123/reviews/review345.
+     * @deny (create, update, delete) - User with ID 'user456' cannot create/update/delete review with ID 'review345' under /users/user123/reviews/review345.
+     * @principle Enforces document ownership for writes.
+     */
+    match /users/{userId}/reviews/{reviewId} {
+      function isExistingOwner(userId) {
+        return request.auth.uid == userId && resource != null;
+      }
+
+      allow get: if request.auth.uid == userId || isAdmin();
+      allow list: if request.auth.uid == userId || isAdmin();
+      allow create: if request.auth.uid == userId;
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Allows admins to perform collection group queries on all bookings.
+     * @path /users/{userId}/bookings/{bookingId}
+     * @allow (list) - An admin can list all bookings across all users.
+     * @principle Enables admin-level data aggregation.
+     */
+    match /{path=**}/bookings/{bookingId} {
+      allow list: if isAdmin();
+    }
+
+    /**
+     * @description Allows anyone to read accommodation information.
+     * @path /accommodations/{accommodationId}
+     * @allow (get, list) - Any user can read accommodation information.
+     * @deny (create, update, delete) - No write permissions are granted in this prototype.
+     * @principle Allows public read access with owner-only writes (not yet implemented).
+     */
+    match /accommodations/{accommodationId} {
+      allow get: if true;
+      allow list: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    /**
+     * @description Allows anyone to read tour package information.
+     * @path /tourPackages/{tourPackageId}
+     * @allow (get, list) - Any user can read tour package information.
+     * @deny (create, update, delete) - No write permissions are granted in this prototype.
+     * @principle Allows public read access with owner-only writes (not yet implemented).
+     */
+    match /tourPackages/{tourPackageId} {
+      allow get: if true;
+      allow list: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    /**
+     * @description Allows anyone to read availability calendar information.
+     * @path /availabilityCalendar/{availabilityCalendarId}
+     * @allow (get, list) - Any user can read availability calendar information.
+     * @deny (create, update, delete) - No write permissions are granted in this prototype.
+     * @principle Allows public read access with owner-only writes (not yet implemented).
+     */
+    match /availabilityCalendar/{availabilityCalendarId} {
+      allow get: if true;
+      allow list: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    /**
+     * @description Allows anyone to read promo code information.
+     * @path /promoCodes/{promoCodeId}
+     * @allow (get, list) - Any user can read promo code information.
+     * @deny (create, update, delete) - No write permissions are granted in this prototype.
+     * @principle Allows public read access with owner-only writes (not yet implemented).
+     */
+    match /promoCodes/{promoCodeId} {
+      allow get: if true;
+      allow list: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    /**
+     * @description Allows anyone to read activity log information.
+     * @path /activityLogs/{activityLogId}
+     * @allow (get, list) - Any user can read activity log information.
+     * @deny (create, update, delete) - No write permissions are granted in this prototype.
+     * @principle Allows public read access with owner-only writes (not yet implemented).
+     */
+    match /activityLogs/{activityLogId} {
+      allow get: if true;
+      allow list: if true;
+      allow create, update, delete: if isAdmin();
+    }
+  }
+}

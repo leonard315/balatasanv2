@@ -1,0 +1,753 @@
+{
+  "entities": {
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user of the Balatasan Beach Resort booking system.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the user entity."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "The first name of the user."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "The last name of the user."
+        },
+        "email": {
+          "type": "string",
+          "description": "The email address of the user.",
+          "format": "email"
+        },
+        "phone": {
+          "type": "string",
+          "description": "The phone number of the user."
+        },
+        "userType": {
+          "type": "string",
+          "description": "The type of user (guest, staff, admin).",
+          "format": "enum"
+        },
+        "isActive": {
+          "type": "boolean",
+          "description": "Indicates whether the user account is active."
+        },
+        "emailVerified": {
+          "type": "boolean",
+          "description": "Indicates whether the user's email address has been verified."
+        },
+        "photoURL": {
+            "type": "string",
+            "description": "The URL of the user's profile picture."
+        }
+      },
+      "required": [
+        "id",
+        "firstName",
+        "lastName",
+        "email"
+      ]
+    },
+    "Accommodation": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Accommodation",
+      "type": "object",
+      "description": "Represents an accommodation at the Balatasan Beach Resort.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the accommodation entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the accommodation."
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the accommodation."
+        },
+        "accommodationType": {
+          "type": "string",
+          "description": "The type of accommodation (cottage, glamping_tent, villa, room).",
+          "format": "enum"
+        },
+        "capacity": {
+          "type": "number",
+          "description": "The maximum capacity of the accommodation."
+        },
+        "pricePerNight": {
+          "type": "number",
+          "description": "The price per night for the accommodation."
+        },
+        "amenities": {
+          "type": "string",
+          "description": "A JSON string array representing the amenities available in the accomodation"
+        },
+        "images": {
+          "type": "string",
+          "description": "A JSON string array representing the image URL's of the accomodation"
+        },
+        "isAvailable": {
+          "type": "boolean",
+          "description": "Indicates whether the accommodation is currently available."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "accommodationType",
+        "capacity",
+        "pricePerNight"
+      ]
+    },
+    "TourPackage": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "TourPackage",
+      "type": "object",
+      "description": "Represents a tour package offered by Balatasan Beach Resort.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the tour package entity."
+        },
+        "tourName": {
+          "type": "string",
+          "description": "The name of the tour package."
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the tour package."
+        },
+        "tourType": {
+          "type": "string",
+          "description": "The type of tour (island_hopping, snorkeling, waterfall, cultural, diving).",
+          "format": "enum"
+        },
+        "durationHours": {
+          "type": "number",
+          "description": "The duration of the tour in hours."
+        },
+        "pricePerPerson": {
+          "type": "number",
+          "description": "The price per person for the tour package."
+        },
+        "maxParticipants": {
+          "type": "number",
+          "description": "The maximum number of participants allowed on the tour."
+        },
+        "minParticipants": {
+          "type": "number",
+          "description": "The minimum number of participants required for the tour."
+        },
+        "inclusions": {
+          "type": "string",
+          "description": "A JSON string array representing the inclusions of the tour."
+        },
+        "images": {
+          "type": "string",
+          "description": "A JSON string array representing image URLs of the tour."
+        },
+        "isActive": {
+          "type": "boolean",
+          "description": "Indicates whether the tour package is currently active."
+        }
+      },
+      "required": [
+        "id",
+        "tourName",
+        "tourType",
+        "durationHours",
+        "pricePerPerson",
+        "maxParticipants"
+      ]
+    },
+    "Booking": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Booking",
+      "type": "object",
+      "description": "Represents a booking made by a user.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the booking entity."
+        },
+        "bookingReference": {
+          "type": "string",
+          "description": "A unique reference number for the booking."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N Booking)"
+        },
+        "bookingType": {
+          "type": "string",
+          "description": "The type of booking (accommodation, tour, package).",
+          "format": "enum"
+        },
+        "checkInDate": {
+          "type": "string",
+          "description": "The check-in date for the booking.",
+          "format": "date-time"
+        },
+        "checkOutDate": {
+          "type": "string",
+          "description": "The check-out date for the booking.",
+          "format": "date-time"
+        },
+        "numberOfGuests": {
+          "type": "number",
+          "description": "The number of guests for the booking."
+        },
+        "totalAmount": {
+          "type": "number",
+          "description": "The total amount for the booking."
+        },
+        "bookingStatus": {
+          "type": "string",
+          "description": "The status of the booking (pending, confirmed, cancelled, completed, no_show).",
+          "format": "enum"
+        },
+        "paymentStatus": {
+          "type": "string",
+          "description": "The payment status of the booking (pending, partial, paid, refunded).",
+          "format": "enum"
+        },
+        "specialRequests": {
+          "type": "string",
+          "description": "Any special requests for the booking."
+        },
+        "cancellationReason": {
+          "type": "string",
+          "description": "The reason for cancellation, if the booking is cancelled."
+        }
+      },
+      "required": [
+        "id",
+        "bookingReference",
+        "userId",
+        "bookingType",
+        "checkInDate",
+        "numberOfGuests",
+        "totalAmount"
+      ]
+    },
+    "BookingItem": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "BookingItem",
+      "type": "object",
+      "description": "Represents an item within a booking (e.g., a specific accommodation or tour).",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the booking item entity."
+        },
+        "bookingId": {
+          "type": "string",
+          "description": "Reference to Booking. (Relationship: Booking 1:N BookingItem)"
+        },
+        "itemType": {
+          "type": "string",
+          "description": "The type of item (accommodation or tour).",
+          "format": "enum"
+        },
+        "itemIdRef": {
+          "type": "string",
+          "description": "References accommodation_id or tour_id based on itemType."
+        },
+        "quantity": {
+          "type": "number",
+          "description": "The quantity of the item."
+        },
+        "unitPrice": {
+          "type": "number",
+          "description": "The unit price of the item."
+        },
+        "subtotal": {
+          "type": "number",
+          "description": "The subtotal for the item."
+        },
+        "bookingDate": {
+          "type": "string",
+          "description": "The date for which the item is booked.",
+          "format": "date"
+        },
+        "timeSlot": {
+          "type": "string",
+          "description": "The time slot for the item, if applicable."
+        }
+      },
+      "required": [
+        "id",
+        "bookingId",
+        "itemType",
+        "itemIdRef",
+        "quantity",
+        "unitPrice",
+        "subtotal",
+        "bookingDate"
+      ]
+    },
+    "Payment": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Payment",
+      "type": "object",
+      "description": "Represents a payment made for a booking.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the payment entity."
+        },
+        "bookingId": {
+          "type": "string",
+          "description": "Reference to Booking. (Relationship: Booking 1:N Payment)"
+        },
+        "amount": {
+          "type": "number",
+          "description": "The amount of the payment."
+        },
+        "paymentMethod": {
+          "type": "string",
+          "description": "The method of payment (gcash, paymaya, credit_card, bank_transfer, cash).",
+          "format": "enum"
+        },
+        "transactionId": {
+          "type": "string",
+          "description": "A unique transaction identifier for the payment."
+        },
+        "paymentStatus": {
+          "type": "string",
+          "description": "The status of the payment (pending, success, failed, refunded).",
+          "format": "enum"
+        },
+        "paymentDate": {
+          "type": "string",
+          "description": "The date and time of the payment.",
+          "format": "date-time"
+        },
+        "refundAmount": {
+          "type": "number",
+          "description": "The amount refunded, if any."
+        },
+        "refundDate": {
+          "type": "string",
+          "description": "The date and time of the refund, if any.",
+          "format": "date-time"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Any notes related to the payment."
+        }
+      },
+      "required": [
+        "id",
+        "bookingId",
+        "amount",
+        "paymentMethod"
+      ]
+    },
+    "Review": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Review",
+      "type": "object",
+      "description": "Represents a review submitted by a user for a booking, accommodation, or tour.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the review entity."
+        },
+        "bookingId": {
+          "type": "string",
+          "description": "Reference to Booking. (Relationship: Booking 1:N Review)"
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N Review)"
+        },
+        "itemType": {
+          "type": "string",
+          "description": "The type of item being reviewed (accommodation, tour, overall).",
+          "format": "enum"
+        },
+        "itemId": {
+          "type": "string",
+          "description": "The ID of the item being reviewed (accommodation_id or tour_id), if applicable."
+        },
+        "rating": {
+          "type": "number",
+          "description": "The rating given by the user (1-5)."
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the review."
+        },
+        "comment": {
+          "type": "string",
+          "description": "The comment provided by the user."
+        },
+        "isApproved": {
+          "type": "boolean",
+          "description": "Indicates whether the review has been approved by an administrator."
+        }
+      },
+      "required": [
+        "id",
+        "bookingId",
+        "userId",
+        "itemType",
+        "rating"
+      ]
+    },
+    "AvailabilityCalendar": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "AvailabilityCalendar",
+      "type": "object",
+      "description": "Represents the availability of accommodations and tours on specific dates.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the availability calendar entity."
+        },
+        "itemType": {
+          "type": "string",
+          "description": "The type of item (accommodation or tour).",
+          "format": "enum"
+        },
+        "itemId": {
+          "type": "string",
+          "description": "The ID of the item (accommodation_id or tour_id)."
+        },
+        "date": {
+          "type": "string",
+          "description": "The date for which availability is being tracked.",
+          "format": "date"
+        },
+        "availableSlots": {
+          "type": "number",
+          "description": "The number of available slots for the item on the given date."
+        },
+        "blocked": {
+          "type": "boolean",
+          "description": "Indicates whether the item is blocked on the given date."
+        },
+        "blockReason": {
+          "type": "string",
+          "description": "The reason for blocking the item, if applicable."
+        }
+      },
+      "required": [
+        "id",
+        "itemType",
+        "itemId",
+        "date",
+        "availableSlots"
+      ]
+    },
+    "PromoCode": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "PromoCode",
+      "type": "object",
+      "description": "Represents a promotional code that can be used to get a discount on bookings.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the promo code entity."
+        },
+        "code": {
+          "type": "string",
+          "description": "The promo code."
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the promo code."
+        },
+        "discountType": {
+          "type": "string",
+          "description": "The type of discount (percentage or fixed_amount).",
+          "format": "enum"
+        },
+        "discountValue": {
+          "type": "number",
+          "description": "The value of the discount."
+        },
+        "minBookingAmount": {
+          "type": "number",
+          "description": "The minimum booking amount required to use the promo code."
+        },
+        "validFrom": {
+          "type": "string",
+          "description": "The date from which the promo code is valid.",
+          "format": "date"
+        },
+        "validUntil": {
+          "type": "string",
+          "description": "The date until which the promo code is valid.",
+          "format": "date"
+        },
+        "usageLimit": {
+          "type": "number",
+          "description": "The maximum number of times the promo code can be used."
+        },
+        "timesUsed": {
+          "type": "number",
+          "description": "The number of times the promo code has been used."
+        },
+        "isActive": {
+          "type": "boolean",
+          "description": "Indicates whether the promo code is currently active."
+        }
+      },
+      "required": [
+        "id",
+        "code",
+        "discountType",
+        "discountValue",
+        "validFrom",
+        "validUntil"
+      ]
+    },
+    "ActivityLog": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ActivityLog",
+      "type": "object",
+      "description": "Represents an activity log for admin actions within the system.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the activity log entity."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N ActivityLog).  Null if the user has been deleted."
+        },
+        "action": {
+          "type": "string",
+          "description": "The action performed (e.g., 'create', 'update', 'delete')."
+        },
+        "entityType": {
+          "type": "string",
+          "description": "The type of entity affected by the action (e.g., 'accommodation', 'tour', 'booking')."
+        },
+        "entityId": {
+          "type": "string",
+          "description": "The ID of the entity affected by the action."
+        },
+        "details": {
+          "type": "string",
+          "description": "A JSON string containing details about the action performed."
+        },
+        "ipAddress": {
+          "type": "string",
+          "description": "The IP address of the user who performed the action."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "The date and time the action was performed.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "action"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "google.com"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Stores user profiles. Path-based ownership ensures that only the authenticated user can access their own profile.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/bookings/{bookingId}",
+        "definition": {
+          "entityName": "Booking",
+          "schema": {
+            "$ref": "#/backend/entities/Booking"
+          },
+          "description": "Stores bookings associated with a specific user. Path-based ownership ensures that only the user can access their bookings.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            },
+            {
+              "name": "bookingId",
+              "description": "The unique identifier of the booking."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/bookings/{bookingId}/bookingItems/{bookingItemId}",
+        "definition": {
+          "entityName": "BookingItem",
+          "schema": {
+            "$ref": "#/backend/entities/BookingItem"
+          },
+          "description": "Stores booking items associated with a specific booking.  Path based ownership continues to ensure only the user can access their booking items.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            },
+            {
+              "name": "bookingId",
+              "description": "The unique identifier of the booking."
+            },
+            {
+              "name": "bookingItemId",
+              "description": "The unique identifier of the booking item."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/bookings/{bookingId}/payments/{paymentId}",
+        "definition": {
+          "entityName": "Payment",
+          "schema": {
+            "$ref": "#/backend/entities/Payment"
+          },
+          "description": "Stores payments associated with a specific booking. Path based ownership continues to ensure only the user can access their payment information.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            },
+            {
+              "name": "bookingId",
+              "description": "The unique identifier of the booking."
+            },
+            {
+              "name": "paymentId",
+              "description": "The unique identifier of the payment."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/reviews/{reviewId}",
+        "definition": {
+          "entityName": "Review",
+          "schema": {
+            "$ref": "#/backend/entities/Review"
+          },
+          "description": "Stores reviews created by a specific user. Path-based ownership ensures that only the user can access their reviews.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            },
+            {
+              "name": "reviewId",
+              "description": "The unique identifier of the review."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/accommodations/{accommodationId}",
+        "definition": {
+          "entityName": "Accommodation",
+          "schema": {
+            "$ref": "#/backend/entities/Accommodation"
+          },
+          "description": "Stores accommodation information. No specific user ownership.",
+          "params": [
+            {
+              "name": "accommodationId",
+              "description": "The unique identifier of the accommodation."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/tourPackages/{tourPackageId}",
+        "definition": {
+          "entityName": "TourPackage",
+          "schema": {
+            "$ref": "#/backend/entities/TourPackage"
+          },
+          "description": "Stores tour package information. No specific user ownership.",
+          "params": [
+            {
+              "name": "tourPackageId",
+              "description": "The unique identifier of the tour package."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/availabilityCalendar/{availabilityCalendarId}",
+        "definition": {
+          "entityName": "AvailabilityCalendar",
+          "schema": {
+            "$ref": "#/backend/entities/AvailabilityCalendar"
+          },
+          "description": "Stores availability calendar information. No specific user ownership.",
+          "params": [
+            {
+              "name": "availabilityCalendarId",
+              "description": "The unique identifier of the availability calendar entry."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/promoCodes/{promoCodeId}",
+        "definition": {
+          "entityName": "PromoCode",
+          "schema": {
+            "$ref": "#/backend/entities/PromoCode"
+          },
+          "description": "Stores promo code information.  No specific user ownership.",
+          "params": [
+            {
+              "name": "promoCodeId",
+              "description": "The unique identifier of the promo code."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/activityLogs/{activityLogId}",
+        "definition": {
+          "entityName": "ActivityLog",
+          "schema": {
+            "$ref": "#/backend/entities/ActivityLog"
+          },
+          "description": "Stores admin activity logs.  No specific user ownership.",
+          "params": [
+            {
+              "name": "activityLogId",
+              "description": "The unique identifier of the activity log entry."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore data structure is designed to ensure security, scalability, and ease of debugging, adhering to the core design principles of Authorization Independence, Clarity of Intent, DBAC (Database-Based Access Control), and QAPs (Rules are not Filters). It focuses on path-based ownership and segregation of concerns. \n\nAuthorization Independence is achieved primarily through path-based ownership for user-specific data and denormalization where needed. User profiles and their associated bookings are stored under `/users/{userId}`, eliminating the need for `get()` calls in security rules to validate ownership. Access to bookings is directly controlled by the user's ID in the path. Collaborative data, if any, would use membership maps stored within the relevant documents, avoiding hierarchical dependencies.\n\nQAPs (Rules are not Filters) is supported via structural segregation. Publicly accessible data (if any) would be stored in separate collections with specific rules, while private user data is kept under the `/users/{userId}` hierarchy. This prevents the need to filter data based on access rights within a single collection, simplifying list operations and preventing unintended data exposure.\n\nThis structure facilitates simple, robust, and debuggable security rules. It's easy to reason about access control because it is based on the document path and the authenticated user's ID, reducing complexity and potential security vulnerabilities."
+  }
+}
