@@ -22,21 +22,21 @@ const cottageTypes = [
     label: 'Standard', 
     price: 1500,
     description: 'Perfect for couples or small groups',
-    image: 'cottage-view'
+    image: 'cottage-std-img'
   },
   { 
     value: 'teenager-children', 
     label: 'Teenager/Children', 
     price: 2000,
     description: 'Ideal for families with kids',
-    image: 'crystal-waters'
+    image: 'cottage-teen-img'
   },
   { 
     value: 'family', 
     label: 'Family', 
     price: 2500,
     description: 'Spacious cottage for the whole family',
-    image: 'island-paradise'
+    image: 'cottage-fam-img'
   },
 ];
 
