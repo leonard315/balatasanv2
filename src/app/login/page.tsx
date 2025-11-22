@@ -23,6 +23,17 @@ function LoginPageContent() {
   const [error, setError] = useState('');
   const [redirectUrl, setRedirectUrl] = useState<string | null>(null);
 
+  // Clear error when user starts typing
+  function handleEmailChange(value: string) {
+    setEmail(value);
+    if (error) setError('');
+  }
+
+  function handlePasswordChange(value: string) {
+    setPassword(value);
+    if (error) setError('');
+  }
+
   useEffect(() => {
     const redirect = searchParams.get('redirect');
     if (redirect) {
@@ -108,18 +119,23 @@ function LoginPageContent() {
               </Alert>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4" autoComplete="off">
+              {/* Honeypot fields to trick browser autocomplete */}
+              <input type="text" name="fake-username" style={{ position: 'absolute', left: '-9999px' }} tabIndex={-1} autoComplete="off" />
+              <input type="password" name="fake-password" style={{ position: 'absolute', left: '-9999px' }} tabIndex={-1} autoComplete="off" />
+              
               <div className="space-y-1.5 sm:space-y-2">
                 <Label htmlFor="email" className="text-gray-600 font-medium text-xs sm:text-sm">
                   * EMAIL ADDRESS
                 </Label>
                 <Input
                   id="email"
+                  name="email-field"
                   type="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => handleEmailChange(e.target.value)}
                   className="h-10 sm:h-12 border-2 border-gray-300 focus:border-blue-500 text-sm sm:text-base"
-                  autoComplete="off"
+                  autoComplete="new-password"
                   placeholder="Enter your email"
                   required
                 />
@@ -132,11 +148,12 @@ function LoginPageContent() {
                 <div className="relative">
                   <Input
                     id="password"
+                    name="password-field"
                     type={showPassword ? "text" : "password"}
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => handlePasswordChange(e.target.value)}
                     className="h-10 sm:h-12 border-2 border-gray-300 focus:border-blue-500 pr-10 sm:pr-12 text-sm sm:text-base"
-                    autoComplete="off"
+                    autoComplete="new-password"
                     placeholder="Enter your password"
                     required
                   />
