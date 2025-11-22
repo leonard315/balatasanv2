@@ -63,13 +63,27 @@ export default function FloatingCottagePage() {
                 priority
               />
             )}
-            <div className="absolute inset-0 bg-black/50 flex flex-col justify-end p-8">
-              <h1 className="text-4xl md:text-5xl font-headline font-bold text-white">
-                Balatasan Floating Cottage
-              </h1>
-              <p className="mt-2 text-lg text-white/90">
-                Experience paradise on water
-              </p>
+            <div className="absolute inset-0 bg-black/50 flex flex-col justify-between p-4 sm:p-8">
+              <div className="flex justify-end">
+                <Button
+                  size="lg"
+                  className="bg-blue-600 hover:bg-blue-700 text-white shadow-xl"
+                  asChild
+                >
+                  <Link href="/bookings/floating-cottage">
+                    <Ticket className="mr-2 h-5 w-5" />
+                    Book Now
+                  </Link>
+                </Button>
+              </div>
+              <div>
+                <h1 className="text-4xl md:text-5xl font-headline font-bold text-white">
+                  Balatasan Floating Cottage
+                </h1>
+                <p className="mt-2 text-lg text-white/90">
+                  Experience paradise on water
+                </p>
+              </div>
             </div>
           </div>
         </Card>
@@ -428,9 +442,12 @@ export default function FloatingCottagePage() {
               size="lg"
               variant="secondary"
               className="bg-white/90 text-primary hover:bg-white"
+              asChild
             >
-              <Ticket className="mr-2 h-5 w-5" />
-              Reserve Floating Cottage
+              <Link href="/bookings/floating-cottage">
+                <Ticket className="mr-2 h-5 w-5" />
+                Reserve Floating Cottage
+              </Link>
             </Button>
           </div>
         </div>
