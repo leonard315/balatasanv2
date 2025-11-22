@@ -56,8 +56,10 @@ export default function FloatingCottageBookingPage() {
   // Check if user is logged in
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      console.log('Auth state changed:', user ? 'User logged in' : 'No user');
       if (!user) {
-        router.push('/login?redirect=/bookings/floating-cottage');
+        console.log('Redirecting to login...');
+        router.replace('/login?redirect=/bookings/floating-cottage');
       } else {
         setCheckingAuth(false);
       }
