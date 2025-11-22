@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -49,11 +49,32 @@ export default function FloatingCottageBookingPage() {
   const [selectedType, setSelectedType] = useState('');
   const [totalAmount, setTotalAmount] = useState(0);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
+  const [checkingAuth, setCheckingAuth] = useState(true);
+
+  // Check if user is logged in
+  useEffect(() => {
+    const user = getCurrentUser();
+    if (!user) {
+      router.push('/login?redirect=/bookings/floating-cottage');
+    } else {
+      setCheckingAuth(false);
+    }
+  }, [router]);
 
   function handleCottageTypeChange(value: string) {
     setSelectedType(value);
     const cottage = cottageTypes.find(c => c.value === value);
     setTotalAmount(cottage?.price || 0);
+  }
+
+  if (checkingAuth) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-lg">Checking authentication...</p>
+        </div>
+      </div>
+    );
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
