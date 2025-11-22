@@ -37,9 +37,9 @@ function LoginPageContent() {
     try {
       const user = await signIn(email, password);
       
-      // If there's a redirect URL, go there
+      // If there's a redirect URL, go there immediately
       if (redirectUrl) {
-        router.push(redirectUrl);
+        router.replace(redirectUrl);
         return;
       }
       
@@ -49,13 +49,12 @@ function LoginPageContent() {
       
       // Check for both 'admin' and 'Admin' (case-insensitive)
       if (profile?.role?.toLowerCase() === 'admin') {
-        router.push('/admin/dashboard');
+        router.replace('/admin/dashboard');
       } else {
-        router.push('/dashboard');
+        router.replace('/dashboard');
       }
     } catch (err: any) {
       setError(err.message || 'Invalid credentials. Please try again.');
-    } finally {
       setLoading(false);
     }
   }
