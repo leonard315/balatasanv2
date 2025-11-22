@@ -97,6 +97,13 @@ function BookingPageContent() {
       return;
     }
 
+    // Validate payment proof for non-cash payments
+    if (selectedPaymentMethod !== 'Cash' && !paymentProof) {
+      setError('Please upload payment proof for ' + selectedPaymentMethod);
+      setLoading(false);
+      return;
+    }
+
     try {
       const formData = new FormData(e.currentTarget);
       const fullName = formData.get('fullName') as string;
@@ -131,6 +138,23 @@ function BookingPageContent() {
       console.log('Creating booking with data:', bookingData);
       const docRef = await addDoc(collection(db, 'bookings'), bookingData);
       console.log('Booking created successfully with ID:', docRef.id);
+
+      // Upload payment proof if provided
+      if (paymentProof) {
+        const { uploadPaymentProof } = await import('@/lib/bookings');
+        await uploadPaymentProof(docRef.id, paymentProof);
+      }
+
+      // Create notification for admin
+      const { createNotification } = await import('@/lib/notifications');
+      await createNotification({
+        userId: 'admin',
+        type: 'booking_created',
+        title: 'New Booking Received',
+        message: `${fullName} booked ${bookingTypeName} for ₱${totalAmount.toLocaleString()}`,
+        bookingId: docRef.id,
+        read: false,
+      });
 
       setSuccess(true);
       setTimeout(() => router.push('/profile?tab=bookings'), 2000);

@@ -8,9 +8,11 @@ import {
   where,
   orderBy,
   Timestamp,
+  getDoc,
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from './firebase';
+import { createNotification } from './notifications';
 
 export type BookingStatus = 'pending' | 'approved' | 'rejected' | 'completed';
 
@@ -40,6 +42,17 @@ export async function createBooking(booking: Omit<Booking, 'id' | 'createdAt' | 
     createdAt: Timestamp.now(),
     updatedAt: Timestamp.now(),
   });
+  
+  // Create notification for admin
+  await createNotification({
+    userId: 'admin',
+    type: 'booking_created',
+    title: 'New Booking Received',
+    message: `${booking.userName} booked ${booking.itemName} for ₱${booking.totalAmount.toLocaleString()}`,
+    bookingId: docRef.id,
+    read: false,
+  });
+  
   return docRef.id;
 }
 
@@ -105,10 +118,33 @@ export async function updateBookingStatus(
   status: BookingStatus
 ): Promise<void> {
   const bookingRef = doc(db, 'bookings', bookingId);
+  
+  // Get booking details first
+  const bookingDoc = await getDoc(bookingRef);
+  if (!bookingDoc.exists()) {
+    throw new Error('Booking not found');
+  }
+  
+  const bookingData = bookingDoc.data();
+  
   await updateDoc(bookingRef, {
     status,
     updatedAt: Timestamp.now(),
   });
+  
+  // Create notification for user
+  if (status === 'approved' || status === 'rejected') {
+    await createNotification({
+      userId: bookingData.userId,
+      type: status === 'approved' ? 'booking_approved' : 'booking_rejected',
+      title: status === 'approved' ? 'Booking Approved!' : 'Booking Rejected',
+      message: status === 'approved' 
+        ? `Your booking for ${bookingData.itemName} has been approved!`
+        : `Your booking for ${bookingData.itemName} has been rejected. Please contact us for more information.`,
+      bookingId: bookingId,
+      read: false,
+    });
+  }
 }
 
 // Get booking statistics

@@ -49,6 +49,13 @@ export default function FloatingCottageBookingPage() {
       return;
     }
 
+    // Validate payment proof for non-cash payments
+    if (selectedPaymentMethod !== 'Cash' && !paymentProof) {
+      setError('Please upload payment proof for ' + selectedPaymentMethod);
+      setLoading(false);
+      return;
+    }
+
     const formData = new FormData(e.currentTarget);
 
     try {
@@ -61,7 +68,7 @@ export default function FloatingCottageBookingPage() {
         bookingDate: new Date(formData.get('bookingDate') as string),
         participants: parseInt(formData.get('participants') as string),
         totalAmount: totalAmount,
-        paymentMethod: formData.get('paymentMethod') as string,
+        paymentMethod: selectedPaymentMethod,
         status: 'pending',
       });
 
@@ -71,7 +78,7 @@ export default function FloatingCottageBookingPage() {
 
       setSuccess(true);
       setTimeout(() => {
-        router.push('/dashboard');
+        router.push('/profile?tab=bookings');
       }, 2000);
     } catch (err: any) {
       setError(err.message || 'Failed to create booking');
@@ -234,22 +241,31 @@ export default function FloatingCottageBookingPage() {
             )}
 
             <div className="grid gap-2">
-              <Label htmlFor="paymentProof">Payment Proof (Screenshot/Photo)</Label>
+              <Label htmlFor="paymentProof">
+                Payment Proof (Screenshot/Photo)
+                {selectedPaymentMethod !== 'Cash' && <span className="text-red-500 ml-1">*</span>}
+              </Label>
               <div className="flex items-center gap-2">
                 <Input
                   id="paymentProof"
                   type="file"
                   accept="image/*"
                   onChange={(e) => setPaymentProof(e.target.files?.[0] || null)}
+                  required={selectedPaymentMethod !== 'Cash'}
                 />
                 <Upload className="h-4 w-4 text-muted-foreground" />
               </div>
+              {paymentProof && (
+                <p className="text-xs text-green-600">✓ File selected: {paymentProof.name}</p>
+              )}
               <p className="text-xs text-muted-foreground">
-                Upload proof of payment for faster approval
+                {selectedPaymentMethod === 'Cash' 
+                  ? 'Payment proof not required for cash payment'
+                  : 'Upload proof of payment for faster approval (Required)'}
               </p>
             </div>
 
-            <Button type="submit" className="w-full" disabled={loading || !selectedType}>
+            <Button type="submit" className="w-full" disabled={loading || !selectedType || !selectedPaymentMethod}>
               {loading ? 'Creating Booking...' : 'Submit Booking'}
             </Button>
           </form>

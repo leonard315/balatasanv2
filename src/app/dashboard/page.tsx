@@ -24,6 +24,7 @@ import {
 import { auth, db } from '@/lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { doc, onSnapshot, collection, query, where, orderBy } from 'firebase/firestore';
+import NotificationBell from '@/components/shared/NotificationBell';
 
 const quickActions = [
   {
@@ -198,6 +199,7 @@ export default function DashboardPage() {
               Hello, {profile?.displayName || user?.displayName || 'Guest'}! Ready for your next adventure?
             </AlertDescription>
           </div>
+          {user && <NotificationBell userId={user.uid} />}
         </Alert>
 
         {/* Stats Cards */}

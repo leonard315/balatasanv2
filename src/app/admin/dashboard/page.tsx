@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Activity, DollarSign, Users, Calendar, TrendingUp, Star, ArrowRight } from 'lucide-react';
+import NotificationBell from '@/components/shared/NotificationBell';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -106,7 +107,8 @@ export default function AdminDashboard() {
             <h1 className="text-3xl font-bold text-white">Admin Dashboard</h1>
             <p className="text-slate-300">Welcome back, Admin</p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
+            <NotificationBell userId="admin" />
             <Link href="/admin/bookings">
               <Button className="bg-blue-600 hover:bg-blue-700">
                 Manage Bookings
