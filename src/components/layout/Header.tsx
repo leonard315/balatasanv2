@@ -13,14 +13,22 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { User, LogOut, Settings, LayoutDashboard } from 'lucide-react';
+import { User, LogOut, Settings, LayoutDashboard, Menu, X } from 'lucide-react';
 import { onAuthChange, logout, getUserProfile, type UserProfile } from '@/lib/auth';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 
 export default function Header() {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthChange(async (authUser) => {
@@ -83,7 +91,108 @@ export default function Header() {
             </Link>
           </nav>
 
-          <div className="flex items-center gap-4">
+          {/* Mobile Menu */}
+          <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+            <SheetTrigger asChild className="md:hidden">
+              <Button variant="ghost" size="icon">
+                <Menu className="h-6 w-6" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[300px]">
+              <SheetHeader>
+                <SheetTitle>Menu</SheetTitle>
+              </SheetHeader>
+              <nav className="flex flex-col gap-4 mt-6">
+                <Link 
+                  href="/accommodations/floating-cottage" 
+                  className="text-lg hover:text-primary transition-colors py-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Floating Cottage
+                </Link>
+                <Link 
+                  href="/tours" 
+                  className="text-lg hover:text-primary transition-colors py-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Tours
+                </Link>
+                <Link 
+                  href="/water-activities" 
+                  className="text-lg hover:text-primary transition-colors py-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Water Activities
+                </Link>
+                <Link 
+                  href="/itinerary-planner" 
+                  className="text-lg hover:text-primary transition-colors py-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Itinerary Planner
+                </Link>
+                {user && (
+                  <>
+                    <hr className="my-2" />
+                    <Link 
+                      href="/dashboard" 
+                      className="text-lg hover:text-primary transition-colors py-2"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <LayoutDashboard className="inline mr-2 h-5 w-5" />
+                      Dashboard
+                    </Link>
+                    {profile?.role?.toLowerCase() === 'admin' && (
+                      <Link 
+                        href="/admin/dashboard" 
+                        className="text-lg hover:text-primary transition-colors py-2"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        <Settings className="inline mr-2 h-5 w-5" />
+                        Admin Panel
+                      </Link>
+                    )}
+                    <Link 
+                      href="/profile" 
+                      className="text-lg hover:text-primary transition-colors py-2"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <User className="inline mr-2 h-5 w-5" />
+                      Profile
+                    </Link>
+                    <button 
+                      onClick={() => { handleLogout(); setMobileMenuOpen(false); }}
+                      className="text-lg text-red-600 hover:text-red-700 transition-colors py-2 text-left"
+                    >
+                      <LogOut className="inline mr-2 h-5 w-5" />
+                      Logout
+                    </button>
+                  </>
+                )}
+                {!user && (
+                  <>
+                    <hr className="my-2" />
+                    <Link 
+                      href="/login" 
+                      className="text-lg hover:text-primary transition-colors py-2"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Login
+                    </Link>
+                    <Link 
+                      href="/signup" 
+                      className="text-lg hover:text-primary transition-colors py-2"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Sign Up
+                    </Link>
+                  </>
+                )}
+              </nav>
+            </SheetContent>
+          </Sheet>
+
+          <div className="hidden md:flex items-center gap-4">
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
