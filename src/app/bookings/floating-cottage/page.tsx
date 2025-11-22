@@ -10,7 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Textarea } from '@/components/ui/textarea';
-import { ArrowLeft, Upload, CheckCircle, AlertCircle } from 'lucide-react';
+import { ArrowLeft, Upload, CheckCircle, AlertCircle, Home } from 'lucide-react';
 import { createBooking, uploadPaymentProof } from '@/lib/bookings';
 import { getCurrentUser } from '@/lib/auth';
 import Image from 'next/image';
