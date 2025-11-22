@@ -16,9 +16,9 @@ import { getCurrentUser } from '@/lib/auth';
 import Image from 'next/image';
 
 const cottageTypes = [
-  { value: 'half-day', label: 'Half Day (4 hours)', price: 1500 },
-  { value: 'whole-day', label: 'Whole Day (8 hours)', price: 2500 },
-  { value: 'overnight', label: 'Overnight Stay', price: 3500 },
+  { value: 'standard', label: 'Standard', price: 1500 },
+  { value: 'teenager-children', label: 'Teenager/Children', price: 2000 },
+  { value: 'family', label: 'Family', price: 2500 },
 ];
 
 export default function FloatingCottageBookingPage() {
@@ -191,53 +191,50 @@ export default function FloatingCottageBookingPage() {
 
             {/* Payment Instructions */}
             {selectedPaymentMethod && selectedPaymentMethod !== 'Cash' && (
-              <Card className="bg-blue-50 dark:bg-blue-900/20 border-blue-200">
-                <CardContent className="pt-4">
-                  <h4 className="font-semibold mb-3 flex items-center gap-2 text-blue-700 dark:text-blue-300">
-                    <AlertCircle className="h-4 w-4" />
-                    Payment Instructions
-                  </h4>
-                  {selectedPaymentMethod === 'GCash' && (
-                    <div className="space-y-2 text-sm">
-                      <p className="font-semibold">Send payment to:</p>
-                      <div className="bg-white dark:bg-gray-800 p-3 rounded-lg border">
-                        <p className="text-lg font-bold text-blue-600">0917 123 4567</p>
-                        <p className="text-xs text-muted-foreground">Account Name: Balatasan Resort</p>
+              <Alert className="bg-blue-900/30 border-blue-700">
+                <AlertCircle className="h-5 w-5 text-blue-400" />
+                <AlertDescription className="text-slate-200">
+                  <div className="space-y-3">
+                    <p className="font-semibold text-base">Payment Instructions:</p>
+                    
+                    {selectedPaymentMethod === 'GCash' && (
+                      <div className="space-y-2">
+                        <p className="text-sm">Send payment to:</p>
+                        <div className="bg-slate-900/50 p-3 rounded-lg">
+                          <p className="text-white font-mono text-lg">0917-123-4567</p>
+                          <p className="text-slate-300 text-sm mt-1">Account Name: Balatasan Beach Resort</p>
+                        </div>
+                        <p className="text-sm text-slate-300">Amount to send: <span className="text-blue-400 font-bold">₱{totalAmount.toLocaleString()}</span></p>
                       </div>
-                      <p className="text-xs text-muted-foreground">
-                        • Take a screenshot of your payment confirmation<br />
-                        • Upload it below for faster approval
-                      </p>
-                    </div>
-                  )}
-                  {selectedPaymentMethod === 'PayMaya' && (
-                    <div className="space-y-2 text-sm">
-                      <p className="font-semibold">Send payment to:</p>
-                      <div className="bg-white dark:bg-gray-800 p-3 rounded-lg border">
-                        <p className="text-lg font-bold text-pink-600">0917 123 4567</p>
-                        <p className="text-xs text-muted-foreground">Account Name: Balatasan Resort</p>
+                    )}
+                    
+                    {selectedPaymentMethod === 'PayMaya' && (
+                      <div className="space-y-2">
+                        <p className="text-sm">Send payment to:</p>
+                        <div className="bg-slate-900/50 p-3 rounded-lg">
+                          <p className="text-white font-mono text-lg">0918-765-4321</p>
+                          <p className="text-slate-300 text-sm mt-1">Account Name: Balatasan Beach Resort</p>
+                        </div>
+                        <p className="text-sm text-slate-300">Amount to send: <span className="text-blue-400 font-bold">₱{totalAmount.toLocaleString()}</span></p>
                       </div>
-                      <p className="text-xs text-muted-foreground">
-                        • Take a screenshot of your payment confirmation<br />
-                        • Upload it below for faster approval
-                      </p>
-                    </div>
-                  )}
-                  {selectedPaymentMethod === 'Bank Transfer' && (
-                    <div className="space-y-2 text-sm">
-                      <p className="font-semibold">Bank Details:</p>
-                      <div className="bg-white dark:bg-gray-800 p-3 rounded-lg border space-y-1">
-                        <p><span className="text-muted-foreground">Bank:</span> <span className="font-semibold">BDO</span></p>
-                        <p><span className="text-muted-foreground">Account Number:</span> <span className="font-bold">1234-5678-9012</span></p>
-                        <p className="text-xs text-muted-foreground">Account Name: Balatasan Beach Resort</p>
+                    )}
+                    
+                    {selectedPaymentMethod === 'Bank Transfer' && (
+                      <div className="space-y-2">
+                        <p className="text-sm">Transfer to:</p>
+                        <div className="bg-slate-900/50 p-3 rounded-lg space-y-1">
+                          <p className="text-white font-semibold">BDO Unibank</p>
+                          <p className="text-white font-mono text-lg">0123-4567-8901</p>
+                          <p className="text-slate-300 text-sm">Account Name: Balatasan Beach Resort</p>
+                        </div>
+                        <p className="text-sm text-slate-300">Amount to transfer: <span className="text-blue-400 font-bold">₱{totalAmount.toLocaleString()}</span></p>
                       </div>
-                      <p className="text-xs text-muted-foreground">
-                        • Upload deposit slip or transfer confirmation below
-                      </p>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
+                    )}
+                    
+                    <p className="text-xs text-yellow-300 mt-2">⚠️ Please upload your payment proof below after completing the transaction.</p>
+                  </div>
+                </AlertDescription>
+              </Alert>
             )}
 
             <div className="grid gap-2">
