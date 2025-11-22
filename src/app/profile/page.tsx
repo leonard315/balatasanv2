@@ -146,14 +146,24 @@ function ProfilePageContent() {
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
       case 'confirmed':
+      case 'approved':
         return 'bg-green-100 text-green-700';
       case 'pending':
         return 'bg-yellow-100 text-yellow-700';
       case 'cancelled':
+      case 'rejected':
         return 'bg-red-100 text-red-700';
       default:
         return 'bg-gray-100 text-gray-700';
     }
+  };
+
+  const isPendingOver24Hours = (booking: Booking) => {
+    if (booking.status !== 'pending') return false;
+    const now = new Date();
+    const createdAt = new Date(booking.createdAt);
+    const hoursDiff = (now.getTime() - createdAt.getTime()) / (1000 * 60 * 60);
+    return hoursDiff >= 24;
   };
 
   if (loading) {
@@ -312,7 +322,7 @@ function ProfilePageContent() {
                   bookings.map((booking) => (
                     <div key={booking.id} className="border rounded-lg p-4">
                       <div className="flex justify-between items-start mb-2">
-                        <div>
+                        <div className="flex-1">
                           <h4 className="font-semibold">
                             {booking.bookingType}
                           </h4>
@@ -323,6 +333,12 @@ function ProfilePageContent() {
                               day: 'numeric'
                             })}
                           </p>
+                          {isPendingOver24Hours(booking) && (
+                            <p className="text-xs text-orange-600 dark:text-orange-400 mt-1 flex items-center gap-1">
+                              <span>⏰</span>
+                              <span>Pending for over 24 hours - We'll review it soon!</span>
+                            </p>
+                          )}
                         </div>
                         <span className={`px-2 py-1 text-xs rounded-full ${getStatusColor(booking.status)}`}>
                           {booking.status}
