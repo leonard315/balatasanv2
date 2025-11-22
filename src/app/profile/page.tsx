@@ -21,10 +21,6 @@ import { doc, onSnapshot, collection, query, where } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import Link from 'next/link';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
-export const revalidate = 0;
-
 interface UserProfile {
   displayName: string;
   email: string;
