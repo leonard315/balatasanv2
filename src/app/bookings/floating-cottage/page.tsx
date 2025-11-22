@@ -15,6 +15,8 @@ import { createBooking, uploadPaymentProof } from '@/lib/bookings';
 import { getCurrentUser } from '@/lib/auth';
 import Image from 'next/image';
 import { placeholderImages } from '@/lib/placeholder-images';
+import { auth } from '@/lib/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
 const cottageTypes = [
   { 
@@ -53,12 +55,15 @@ export default function FloatingCottageBookingPage() {
 
   // Check if user is logged in
   useEffect(() => {
-    const user = getCurrentUser();
-    if (!user) {
-      router.push('/login?redirect=/bookings/floating-cottage');
-    } else {
-      setCheckingAuth(false);
-    }
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        router.push('/login?redirect=/bookings/floating-cottage');
+      } else {
+        setCheckingAuth(false);
+      }
+    });
+
+    return () => unsubscribe();
   }, [router]);
 
   function handleCottageTypeChange(value: string) {
